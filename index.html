@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vestigios Café — Where Origin Becomes Provenance</title>
+<meta name="description" content="Direct-trade specialty coffee microlots from Honduras, each verified and certified on Cardano.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+<style>
+  :root{
+    --cream:      #F1E7D8;
+    --cream-2:    #E9DCC7;
+    --taupe:      #C7B7A3;
+    --terracotta: #8B5A3C;
+    --terracotta-d:#6E4630;
+    --brass:      #B8923B;
+    --sage:       #4B6B4E;
+    --charcoal:   #2A2420;
+    --indigo:     #3D3470;
+    --white-soft: #FBF7F0;
+
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'Plus Jakarta Sans', -apple-system, sans-serif;
+    --mono:  'IBM Plex Mono', 'Courier New', monospace;
+
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--cream);
+    color: var(--charcoal);
+    font-family: var(--sans);
+    font-weight: 400;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color: inherit; }
+  .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 0 28px; }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--terracotta-d);
+    display:inline-block;
+    margin-bottom: 14px;
+  }
+  h1,h2,h3{ font-family: var(--serif); font-weight: 500; margin: 0; color: var(--charcoal); }
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family: var(--sans);
+    font-size: 14px;
+    letter-spacing:.03em;
+    padding: 13px 26px;
+    border-radius: 999px;
+    border: 1px solid var(--terracotta);
+    background: var(--terracotta);
+    color: var(--white-soft);
+    cursor:pointer;
+    text-decoration:none;
+    transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+  }
+  .btn:hover{ background: var(--terracotta-d); box-shadow: 0 6px 18px rgba(139,90,60,.25); transform: translateY(-1px); }
+  .btn.ghost{ background: transparent; color: var(--terracotta-d); }
+  .btn.ghost:hover{ background: rgba(139,90,60,.08); }
+  .btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible{
+    outline: 2px solid var(--indigo);
+    outline-offset: 3px;
+  }
+
+  /* ---------- liquid glass utility ---------- */
+  .glass{
+    background: rgba(251,247,240,.42);
+    backdrop-filter: blur(20px) saturate(1.6);
+    -webkit-backdrop-filter: blur(20px) saturate(1.6);
+    border: 1px solid rgba(255,255,255,.5);
+    box-shadow:
+      0 8px 32px rgba(42,36,32,.10),
+      inset 0 1px 0 rgba(255,255,255,.6);
+  }
+
+  /* ---------- decorative ring stain (signature motif) ---------- */
+  .ring{
+    position:absolute;
+    border-radius: 50%;
+    border: 26px solid var(--terracotta);
+    opacity: .08;
+    filter: blur(.3px);
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position: sticky; top:0; z-index: 50;
+    background: rgba(241,231,216,.55);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid rgba(255,255,255,.35);
+    box-shadow: 0 8px 32px rgba(42,36,32,.06);
+  }
+  .nav{
+    max-width: var(--maxw); margin:0 auto; padding: 4px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .brand img{ height: 92px; width:auto; transition: height .2s ease; }
+  .brand span{ font-family: var(--serif); font-size: 19px; letter-spacing: .01em; }
+  nav.links{ display:flex; gap: 34px; }
+  nav.links a{
+    font-size: 13px; letter-spacing:.08em; text-transform:uppercase;
+    text-decoration:none; color: var(--charcoal); opacity:.72;
+    padding-bottom: 4px; border-bottom: 1px solid transparent;
+    transition: opacity .15s ease, border-color .15s ease;
+  }
+  nav.links a:hover{ opacity:1; border-color: var(--brass); }
+  .menu-btn{ display:none; background:none; border:none; cursor:pointer; padding:6px; }
+  .menu-btn span{ display:block; width:22px; height:2px; background:var(--charcoal); margin:5px 0; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; overflow:hidden;
+    padding: 120px 28px 300px;
+    background:
+      linear-gradient(90deg, rgba(241,231,216,.97) 0%, rgba(241,231,216,.88) 38%, rgba(241,231,216,.42) 62%, rgba(241,231,216,.12) 100%),
+      url('assets/farmer-portrait-1.jpg') center 30%/cover no-repeat;
+  }
+  .hero-inner{ max-width: var(--maxw); margin:0 auto; position:relative; z-index:2; }
+  .hero .eyebrow{ opacity:0; animation: fadeUp .7s ease .1s forwards; }
+  .hero h1{
+    font-size: clamp(38px, 5.6vw, 68px);
+    line-height: 1.05;
+    max-width: 920px;
+    letter-spacing: -.01em;
+    opacity:0; animation: fadeUp .8s ease .25s forwards;
+  }
+  .hero h1 em{ font-style: italic; color: var(--terracotta); }
+  .hero p.lead{
+    font-size: 18px; max-width: 560px; margin-top: 22px; color:#4a423b;
+    opacity:0; animation: fadeUp .8s ease .4s forwards;
+  }
+  .hero .cta-row{ margin-top: 34px; display:flex; gap:16px; flex-wrap:wrap;
+    opacity:0; animation: fadeUp .8s ease .55s forwards; }
+  @keyframes fadeUp{ from{ opacity:0; transform: translateY(14px);} to{ opacity:1; transform:none; } }
+
+  .hero-mark{
+    position:absolute; right: -60px; top: -40px; width: 480px; height:480px;
+    border-radius:50%;
+    border: 90px solid var(--terracotta);
+    opacity:.16;
+    mix-blend-mode: multiply;
+  }
+  .hero-mark.two{ right: 120px; top: 220px; width:220px; height:220px; border-width:40px; opacity:.14; border-color: var(--sage); mix-blend-mode: multiply; }
+
+  .qr-badge{
+    position:absolute; right: 40px; bottom: 34px; z-index:3;
+    border-radius: 14px;
+    padding: 14px 16px 12px;
+    display:flex; flex-direction:column; align-items:center; gap:8px;
+  }
+  .qr-badge #qrCanvas{ line-height:0; border-radius:4px; overflow:hidden; }
+  .qr-badge #qrCanvas img, .qr-badge #qrCanvas canvas{ display:block; width:104px; height:104px; }
+  .qr-badge span{
+    font-family: var(--mono); font-size: 10px; letter-spacing:.03em;
+    color:#5a5148; text-align:center; max-width:110px;
+  }
+
+  /* ---------- origin photo mosaic ---------- */
+  .origin-gallery{
+    display:grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-auto-rows: 120px;
+    gap: 14px;
+    margin-top: 56px;
+  }
+  .og-item{
+    position:relative; overflow:hidden; border-radius: 8px;
+    background: #ddd3c2;
+  }
+  .og-item img{ width:100%; height:100%; object-fit:cover; display:block; transition: transform .5s ease; }
+  .og-item:hover img{ transform: scale(1.05); }
+  .og-item .cap{
+    position:absolute; left:10px; bottom:10px; right:10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: var(--mono); font-size: 10.5px; color: var(--charcoal);
+    line-height:1.4;
+  }
+  .og-item.tall{ grid-row: span 2; }
+  .og-item.wide{ grid-column: span 2; }
+  .og-1{ grid-column: span 2; grid-row: span 2; }
+  .og-2{ grid-column: span 2; grid-row: span 1; }
+  .og-3{ grid-column: span 2; grid-row: span 1; }
+  .og-4{ grid-column: span 2; grid-row: span 2; }
+  .og-5{ grid-column: span 2; grid-row: span 1; }
+  .og-6{ grid-column: span 2; grid-row: span 1; }
+  .og-soil{ grid-column: span 4; grid-row: span 1; }
+  @media (max-width: 820px){
+    .origin-gallery{ grid-template-columns: repeat(2,1fr); grid-auto-rows: 160px; }
+    .og-1,.og-2,.og-3,.og-4,.og-5,.og-6{ grid-column: span 1; grid-row: span 1; }
+    .og-1{ grid-column: span 2; grid-row: span 2; }
+    .og-soil{ grid-column: span 2; }
+  }
+
+  /* ---------- section shell ---------- */
+  section{ padding: 96px 0; position:relative; }
+  .section-head{ max-width: 640px; margin-bottom: 52px; }
+  .section-head p{ color:#584f47; font-size: 16px; margin-top:14px; }
+  .divider{
+    width:100%; height:1px;
+    background: linear-gradient(90deg, transparent, rgba(42,36,32,.14), transparent);
+  }
+
+  /* ---------- lots ---------- */
+  #lots{ background: var(--white-soft); }
+  .lot-grid{
+    display:grid; grid-template-columns: repeat(4, 1fr); gap: 22px;
+  }
+  .lot-card{
+    background: var(--cream);
+    border: 1px solid rgba(42,36,32,.08);
+    border-radius: 4px;
+    padding: 26px 22px 24px;
+    position:relative;
+    transition: transform .22s ease, box-shadow .22s ease;
+  }
+  .lot-card:nth-child(2){ transform: translateY(14px); }
+  .lot-card:nth-child(2):hover{ transform: translateY(14px) translateY(-4px); }
+  .lot-card:hover{ transform: translateY(-4px); box-shadow: 0 16px 30px rgba(42,36,32,.08); }
+  .lot-card .glyph{
+    width:34px; height:34px;
+    border-radius:50%; border: 2px solid var(--brass);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--mono); font-size:11px; color:var(--brass);
+    flex-shrink:0;
+  }
+  .lot-card .bean-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; }
+  .lot-card .bean-icon{ width:34px; height:46px; }
+  .lot-card h3{ font-size: 24px; margin-bottom:4px; }
+  .lot-card .region{ font-size:13px; color: var(--sage); font-style:italic; margin-bottom:16px; }
+  .lot-card dl{ margin:0 0 18px; font-family: var(--mono); font-size: 12.5px; color:#5a5148; }
+  .lot-card dl div{ display:flex; justify-content:space-between; padding: 5px 0; border-bottom: 1px dashed rgba(42,36,32,.12); }
+  .lot-card dl dt{ opacity:.7; }
+  .lot-card dl dd{ margin:0; text-align:right; }
+  .lot-card .notes{ font-size:13.5px; color:#4a423b; margin-bottom:20px; min-height:40px; }
+  .lot-card button.request{
+    width:100%; font-family: var(--sans); font-size:13px; letter-spacing:.03em;
+    padding:11px; border-radius:999px; border:1px solid var(--terracotta);
+    background:transparent; color:var(--terracotta-d); cursor:pointer;
+    transition: background .15s ease, color .15s ease;
+  }
+  .lot-card button.request:hover{ background:var(--terracotta); color:var(--white-soft); }
+
+  /* ---------- process ---------- */
+  #process{ background: var(--cream); }
+  .process-layout{ display:grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items:center; }
+  .process-copy p{ color:#4a423b; margin-bottom:14px; }
+  .process-tags{ display:flex; gap:10px; flex-wrap:wrap; margin-top:22px; }
+  .process-tag{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.04em;
+    padding: 7px 13px; border-radius: 999px; border:1px solid rgba(42,36,32,.18);
+    color:#584f47; cursor:pointer; background: var(--white-soft);
+    transition: all .15s ease;
+  }
+  .process-tag.active{ background: var(--terracotta); border-color:var(--terracotta); color:#fff; }
+
+  .cherry-diagram{
+    background: var(--white-soft);
+    border: 1px solid rgba(42,36,32,.08);
+    border-radius: 8px;
+    padding: 34px;
+  }
+  .cherry-diagram svg{ width:100%; height:auto; display:block; }
+  .cherry-caption{ font-family: var(--mono); font-size: 12.5px; color:#584f47; margin-top:18px; min-height: 40px; }
+  .cherry-caption b{ color: var(--terracotta-d); }
+
+  /* ---------- certification (NFT) ---------- */
+  #certification{ background: var(--white-soft); }
+  .cert-layout{ display:grid; grid-template-columns: .95fr 1.15fr; gap: 60px; align-items:center; }
+  .nft-card{
+    border-radius: 16px;
+    padding: 18px;
+    position: relative;
+    max-width: 380px;
+  }
+  .nft-card .art{
+    border-radius: 6px; overflow:hidden;
+    border: 2px solid var(--brass);
+    position:relative;
+  }
+  .nft-card .art::after{
+    content:"";
+    position:absolute; inset:0;
+    background: linear-gradient(160deg, rgba(184,146,59,.12), transparent 40%);
+    pointer-events:none;
+  }
+  .nft-card .meta{ padding: 16px 6px 4px; }
+  .nft-card .meta .name{ font-family: var(--serif); font-size:18px; margin-bottom:10px; }
+  .nft-card .meta dl{ font-family: var(--mono); font-size: 10.5px; color:#5a5148; line-height:1.5; }
+  .nft-card .meta dl dt{ opacity:.65; display:inline; }
+  .nft-card .meta dl dd{ display:inline; margin:0; word-break: break-all; }
+  .nft-node{
+    position:absolute; width:14px; height:14px; border-radius: 3px;
+    background: linear-gradient(135deg, var(--brass), var(--indigo));
+    opacity:.9;
+  }
+  .nft-node.n1{ top:-7px; right:26px; transform:rotate(20deg); }
+  .nft-node.n2{ top:-7px; right:44px; width:8px;height:8px; transform:rotate(45deg); opacity:.7;}
+
+  .cert-copy p{ color:#4a423b; margin-bottom:16px; }
+  .eutxo-line{
+    font-size: 14px; color: #584f47; padding: 14px 18px;
+    border-left: 2px solid var(--brass);
+    background: rgba(184,146,59,.07);
+    margin: 22px 0 26px;
+  }
+  .value-grid{ display:grid; grid-template-columns: repeat(3,1fr); gap:18px; margin-top: 8px; }
+  .value-item{ padding: 18px; border:1px solid rgba(42,36,32,.1); border-radius:6px; background: var(--cream); }
+  .value-item .ic{ width:26px; height:26px; margin-bottom:10px; color: var(--indigo); }
+  .value-item h4{ font-family: var(--serif); font-size:16px; font-weight:500; margin-bottom:6px; }
+  .value-item p{ font-size:12.5px; color:#5a5148; margin:0; }
+  .aspirational-tag{ font-family: var(--mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase; color:var(--indigo); opacity:.75; }
+
+  /* ---------- contact ---------- */
+  #contact{ background: var(--cream); }
+  .contact-layout{ display:grid; grid-template-columns: .85fr 1.15fr; gap: 60px; }
+  .contact-side p{ color:#4a423b; }
+  .contact-side .line{ margin-top:28px; padding-top:22px; border-top:1px solid rgba(42,36,32,.12); font-family: var(--mono); font-size:12.5px; color:#5a5148; }
+
+  form.guestbook{
+    background: var(--white-soft);
+    border: 1px solid rgba(42,36,32,.09);
+    border-radius: 8px;
+    padding: 40px;
+  }
+  .form-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 20px 22px; }
+  .field{ display:flex; flex-direction:column; gap:7px; }
+  .field.full{ grid-column: 1 / -1; }
+  .field label{ font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:#5a5148; font-family:var(--mono); }
+  .field input, .field select, .field textarea{
+    font-family: var(--sans); font-size: 14.5px; color: var(--charcoal);
+    background: transparent; border: none; border-bottom: 1px solid rgba(42,36,32,.25);
+    padding: 8px 2px; transition: border-color .15s ease;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color: var(--terracotta); outline:none; }
+  .field textarea{ resize: vertical; min-height: 70px; }
+  .field .hint{ font-size:11px; color:#8a8177; }
+  form.guestbook .btn{ margin-top: 28px; width:100%; justify-content:center; border:none; }
+  .form-note{ font-size:12px; color:#8a8177; margin-top:14px; text-align:center; }
+  #formStatus{ margin-top:16px; font-size:13.5px; text-align:center; display:none; }
+
+  /* ---------- footer ---------- */
+  footer{ background: var(--charcoal); color: var(--cream); padding: 56px 0 34px; }
+  .footer-top{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px; margin-bottom:34px; }
+  .footer-brand{ display:flex; align-items:center; gap:10px; }
+  .footer-brand img{ height:30px; filter: brightness(0) invert(1); opacity:.9; }
+  .footer-brand span{ font-family: var(--serif); font-size:16px; }
+  footer nav{ display:flex; gap:26px; }
+  footer nav a{ font-size:12.5px; text-decoration:none; color: var(--cream); opacity:.65; letter-spacing:.04em; text-transform:uppercase; }
+  footer nav a:hover{ opacity:1; }
+  .footer-bottom{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; padding-top: 26px; border-top:1px solid rgba(241,231,216,.14); font-size:12px; opacity:.55; font-family:var(--mono); }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{ opacity:0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .reveal{ transition:none; opacity:1; transform:none; }
+    .hero .eyebrow,.hero h1,.hero p.lead,.hero .cta-row{ animation:none; opacity:1; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px){
+    nav.links{ display:none; }
+    .menu-btn{ display:block; }
+    .brand img{ height: 60px; }
+    .lot-grid{ grid-template-columns: 1fr 1fr; }
+    .lot-card:nth-child(2){ transform:none; }
+    .process-layout, .cert-layout, .contact-layout{ grid-template-columns: 1fr; }
+    .value-grid{ grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px){
+    .lot-grid{ grid-template-columns: 1fr; }
+    .form-grid{ grid-template-columns: 1fr; }
+    .value-grid{ grid-template-columns: 1fr; }
+    section{ padding: 68px 0; }
+    .hero{ padding: 76px 20px 220px; background-position: center 20%; }
+    .qr-badge{ display:none; }
+  }
+
+  nav.links.open{
+    display:flex; position:absolute; top:100%; left:0; right:0;
+    background: var(--cream); flex-direction:column; padding: 18px 28px 26px; gap:16px;
+    border-bottom: 1px solid rgba(42,36,32,.08);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="brand">
+      <img src="assets/logo.png" alt="Vestigios Café">
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#origin">Origin</a>
+      <a href="#lots">Lots</a>
+      <a href="#process">Process</a>
+      <a href="#certification">NFT's</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="ring hero-mark" aria-hidden="true"></div>
+    <div class="ring hero-mark two" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="eyebrow">Honduran single-origin microlots</span>
+      <h1>Where origin<br>becomes <em>provenance</em>.</h1>
+      <p class="lead">Direct-trade specialty coffee sourced from a handful of Honduran family farms, cupped and arbitrated to a shared standard, and certified on-chain so the story can't be lost between harvest and roaster.</p>
+      <div class="cta-row">
+        <a href="#lots" class="btn">Explore our lots</a>
+        <a href="#certification" class="btn ghost">See how NFT certification works</a>
+      </div>
+    </div>
+
+    <div class="qr-badge glass reveal in" id="qrBadge">
+      <div id="qrCanvas"></div>
+      <span>Scan to visit on your phone</span>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <!-- ORIGIN -->
+  <section id="origin">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Origin</span>
+        <h2 style="font-size:clamp(28px,3.4vw,40px);">Two ranges, one standard of care</h2>
+        <p>Every lot we offer comes from farms we know personally — no anonymous cooperative blends. Altitude, variety, and processing are chosen deliberately, then verified before a single bag leaves Honduras.</p>
+      </div>
+      <div class="process-layout reveal" style="grid-template-columns: 1fr 1fr;">
+        <div>
+          <span class="eyebrow" style="color:var(--sage);">Cordillera de Montecillos</span>
+          <h3 style="font-size:22px; margin-bottom:10px;">Santiago de Puringla & upper La Paz</h3>
+          <p style="color:#4a423b;">1,600–2,000 masl. Home to our Geisha and Pacamara lots — small plots on steep, cloud-covered slopes where cherry ripens slowly and unevenly, which is exactly why the cup is so distinct.</p>
+        </div>
+        <div>
+          <span class="eyebrow" style="color:var(--sage);">Montaña de Comayagua</span>
+          <h3 style="font-size:22px; margin-bottom:10px;">Los Hornos & Sanpedrana communities</h3>
+          <p style="color:#4a423b;">Around 1,600 masl. A tight-knit growing community producing our Sidra and Parainema lots, with a strong culture of experimental processing passed between neighboring farms.</p>
+        </div>
+      </div>
+
+      <div class="origin-gallery reveal">
+        <div class="og-item og-1">
+          <img src="assets/farmer-portrait-1.jpg" alt="Producer standing among coffee plants on a shaded Honduran hillside">
+          <div class="cap glass">Cordillera de Montecillos — shade-grown coffee among native forest cover</div>
+        </div>
+        <div class="og-item og-2">
+          <img src="assets/seedlings-wheelbarrow.jpg" alt="Farmer carrying coffee seedlings ready for planting">
+          <div class="cap glass">New seedlings, ready for planting — the next harvest starts years in advance</div>
+        </div>
+        <div class="og-item og-3">
+          <img src="assets/cherry-hands.jpg" alt="Hands inspecting young green coffee cherries on the branch">
+          <div class="cap glass">Checking cherry development by hand, weeks before harvest</div>
+        </div>
+        <div class="og-item og-4">
+          <img src="assets/drying-beds.jpg" alt="Raised drying beds structure at a Honduran wet mill">
+          <div class="cap glass">Raised drying beds — where honey and natural lots slow-dry under cover</div>
+        </div>
+        <div class="og-item og-5">
+          <img src="assets/farmer-portrait-2.jpg" alt="Producer partner pointing out ripening coffee cherries">
+          <div class="cap glass">One of our growing partners, walking a Comayagua plot</div>
+        </div>
+        <div class="og-item og-6">
+          <img src="assets/farmer-coffee-cup.jpg" alt="Producer relaxing with a cup of coffee at home">
+          <div class="cap glass">The first cup — always brewed at home, before it ever leaves the farm</div>
+        </div>
+        <div class="og-item og-soil">
+          <img src="assets/soil-health.jpg" alt="Hand examining healthy, mycelium-rich soil beneath leaf litter">
+          <div class="cap glass">Soil health evidence from our <em style="font-style:italic;">Estrategia Cosecha Azul</em> — visible mycelium and leaf-litter breakdown beneath the canopy, part of how we track farm health beyond the cup.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <!-- LOTS -->
+  <section id="lots">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Available lots</span>
+        <h2 style="font-size:clamp(28px,3.4vw,40px);">This season's microlots</h2>
+        <p>Volumes are small on purpose. Each card below is a real lot, not a catalog category — request one to start a direct conversation with us.</p>
+      </div>
+
+      <div class="lot-grid">
+
+        <div class="lot-card reveal">
+          <div class="bean-row">
+            <svg class="bean-icon" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="20" cy="28" rx="18" ry="26" fill="#8B5A3C" fill-opacity=".14" stroke="#8B5A3C" stroke-width="2"/>
+              <path d="M20 6 C13 16, 13 40, 20 50" stroke="#8B5A3C" stroke-width="2" fill="none"/>
+            </svg>
+            <div class="glyph">Ge</div>
+          </div>
+          <h3>Geisha</h3>
+          <div class="region">Cordillera de Montecillos</div>
+          <dl>
+            <div><dt>Farm</dt><dd>La Cordillera, Puringla</dd></div>
+            <div><dt>Altitude</dt><dd>1,800–2,000 masl</dd></div>
+            <div><dt>Process</dt><dd>Washed</dd></div>
+            <div><dt>Lot size</dt><dd>12 bags</dd></div>
+          </dl>
+          <p class="notes">Jasmine, bergamot, pale stone fruit. A quiet, tea-like body.</p>
+          <button class="request" data-lot="Geisha">Request this lot</button>
+        </div>
+
+        <div class="lot-card reveal">
+          <div class="bean-row">
+            <svg class="bean-icon" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="20" cy="28" rx="18" ry="26" fill="#4B6B4E" fill-opacity=".14" stroke="#4B6B4E" stroke-width="2"/>
+              <path d="M20 6 C13 16, 13 40, 20 50" stroke="#4B6B4E" stroke-width="2" fill="none"/>
+            </svg>
+            <div class="glyph">Si</div>
+          </div>
+          <h3>Sidra</h3>
+          <div class="region">Montaña de Comayagua</div>
+          <dl>
+            <div><dt>Farm</dt><dd>Los Hornos</dd></div>
+            <div><dt>Altitude</dt><dd>~1,600 masl</dd></div>
+            <div><dt>Process</dt><dd>Honey</dd></div>
+            <div><dt>Lot size</dt><dd>18 bags</dd></div>
+          </dl>
+          <p class="notes">Red apple, brown sugar, a soft cider-like acidity.</p>
+          <button class="request" data-lot="Sidra">Request this lot</button>
+        </div>
+
+        <div class="lot-card reveal">
+          <div class="bean-row">
+            <svg class="bean-icon" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="20" cy="28" rx="18" ry="26" fill="#B8923B" fill-opacity=".16" stroke="#B8923B" stroke-width="2"/>
+              <path d="M20 6 C13 16, 13 40, 20 50" stroke="#B8923B" stroke-width="2" fill="none"/>
+            </svg>
+            <div class="glyph">Pa</div>
+          </div>
+          <h3>Pacamara</h3>
+          <div class="region">Cordillera de Montecillos</div>
+          <dl>
+            <div><dt>Farm</dt><dd>Alta La Paz</dd></div>
+            <div><dt>Altitude</dt><dd>1,700–1,900 masl</dd></div>
+            <div><dt>Process</dt><dd>Natural</dd></div>
+            <div><dt>Lot size</dt><dd>15 bags</dd></div>
+          </dl>
+          <p class="notes">Dense body, dark cherry, a lingering cocoa finish.</p>
+          <button class="request" data-lot="Pacamara">Request this lot</button>
+        </div>
+
+        <div class="lot-card reveal">
+          <div class="bean-row">
+            <svg class="bean-icon" viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="20" cy="28" rx="18" ry="26" fill="#3D3470" fill-opacity=".12" stroke="#3D3470" stroke-width="2"/>
+              <path d="M20 6 C13 16, 13 40, 20 50" stroke="#3D3470" stroke-width="2" fill="none"/>
+            </svg>
+            <div class="glyph">Pn</div>
+          </div>
+          <h3>Parainema</h3>
+          <div class="region">Montaña de Comayagua</div>
+          <dl>
+            <div><dt>Farm</dt><dd>Sanpedrana</dd></div>
+            <div><dt>Altitude</dt><dd>~1,600 masl</dd></div>
+            <div><dt>Process</dt><dd>Honey</dd></div>
+            <div><dt>Lot size</dt><dd>20 bags</dd></div>
+          </dl>
+          <p class="notes">Panela sweetness, orange peel, a rounded, syrupy cup.</p>
+          <button class="request" data-lot="Parainema">Request this lot</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <div class="process-layout">
+        <div class="process-copy reveal">
+          <span class="eyebrow">Process</span>
+          <h2 style="font-size:clamp(28px,3.4vw,38px); margin-bottom:16px;">How the cherry becomes the cup</h2>
+          <p>Processing decides as much of the final flavor as variety or altitude does. Tap a method below to see how each one treats the mucilage layer differently.</p>
+          <div class="process-tags" id="processTags">
+            <button class="process-tag active" data-p="honey">Honey</button>
+            <button class="process-tag" data-p="washed">Washed</button>
+            <button class="process-tag" data-p="natural">Natural</button>
+          </div>
+        </div>
+
+        <div class="cherry-diagram reveal">
+          <svg viewBox="0 0 420 260" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coffee cherry cross-section diagram">
+            <!-- outer skin -->
+            <ellipse id="layerSkin" cx="210" cy="130" rx="150" ry="105" fill="none" stroke="#8B5A3C" stroke-width="3"/>
+            <!-- mucilage -->
+            <ellipse id="layerMucilage" cx="210" cy="130" rx="118" ry="80" fill="#B8923B" fill-opacity="0.55" stroke="#B8923B" stroke-width="2"/>
+            <!-- parchment -->
+            <ellipse id="layerParchment" cx="210" cy="130" rx="86" ry="58" fill="none" stroke="#4B6B4E" stroke-width="2.5" stroke-dasharray="4 4"/>
+            <!-- bean -->
+            <ellipse cx="185" cy="130" rx="34" ry="46" fill="#2A2420" fill-opacity="0.85" transform="rotate(-10 185 130)"/>
+            <ellipse cx="235" cy="130" rx="34" ry="46" fill="#2A2420" fill-opacity="0.85" transform="rotate(10 235 130)"/>
+            <path d="M185 90 Q195 130 185 170" stroke="#F1E7D8" stroke-width="2" fill="none" transform="rotate(-10 185 130)"/>
+            <path d="M235 90 Q245 130 235 170" stroke="#F1E7D8" stroke-width="2" fill="none" transform="rotate(10 235 130)"/>
+
+            <line x1="210" y1="25" x2="210" y2="45" stroke="#8B5A3C" stroke-width="1"/>
+            <text x="210" y="18" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#8B5A3C">skin</text>
+
+            <line x1="330" y1="90" x2="352" y2="70" stroke="#B8923B" stroke-width="1"/>
+            <text x="356" y="70" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="10" fill="#B8923B" id="mucilageLabel">mucilage</text>
+
+            <line x1="296" y1="130" x2="318" y2="130" stroke="#4B6B4E" stroke-width="1"/>
+            <text x="322" y="134" text-anchor="start" font-family="IBM Plex Mono, monospace" font-size="10" fill="#4B6B4E">parchment</text>
+          </svg>
+          <div class="cherry-caption" id="cherryCaption">
+            <b>Honey process —</b> the skin is removed but some or all of the sticky mucilage is left on the parchment to dry with the bean, adding body and sweetness.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <!-- CERTIFICATION -->
+  <section id="certification">
+    <div class="wrap">
+      <div class="cert-layout">
+
+        <div class="reveal" style="display:flex; justify-content:center;">
+          <div class="nft-card glass">
+            <div class="nft-node n1"></div>
+            <div class="nft-node n2"></div>
+            <div class="art">
+              <img src="assets/nft-example-2.png" alt="Example generative-art coffee certificate artwork">
+            </div>
+            <div class="meta">
+              <div class="name">Vestigios — Lot NFT (example)</div>
+              <dl>
+                <div><dt>Policy&nbsp;</dt><dd>7f2a…d91c</dd></div>
+                <div><dt>Asset&nbsp;</dt><dd>asset1vgt…lot04</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-copy reveal">
+          <span class="eyebrow">NFT Certification · Non-Fungible Tokens</span>
+          <h2 style="font-size:clamp(28px,3.4vw,38px); margin-bottom:16px;">Every lot, verified forever</h2>
+          <p>Before a lot ships, both sides agree on a cupping profile through an SCA-based arbitration. That agreement — score, notes, and lot data — is what gets certified, so neither party can quietly revise it later.</p>
+          <div class="eutxo-line">
+            Certification runs on Cardano, built on the eUTXO model — the same lightweight, verifiable accounting logic Bitcoin pioneered. We chose it as common ground the two ecosystems already share, with room to connect further as that architecture matures.
+          </div>
+          <p style="font-size:14px; color:#5a5148;">Payment can move as a stablecoin, a native token, or Bitcoin — whatever settles cleanest for your treasury.</p>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top:64px;">
+        <span class="aspirational-tag">Where this is headed</span>
+        <div class="value-grid" style="margin-top:16px;">
+          <div class="value-item">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M2 12h20"/></svg>
+            <h4>Royalties</h4>
+            <p>Certificate holders could earn a share when a lot's provenance is resold or licensed downstream.</p>
+          </div>
+          <div class="value-item">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            <h4>Buyer discounts</h4>
+            <p>Holding a certificate from a past harvest could unlock preferred pricing on the next one.</p>
+          </div>
+          <div class="value-item">
+            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h16v12H4zM4 20h16"/></svg>
+            <h4>Direct auctions</h4>
+            <p>Future rare lots could be offered first — or only — to holders, before anyone else sees them.</p>
+          </div>
+        </div>
+        <p style="font-size:12px; color:#8a8177; margin-top:16px;">These mechanics are still being designed — we're building them alongside our first buyers, not before them.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="divider"></div></div>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-layout">
+        <div class="contact-side reveal">
+          <span class="eyebrow">Start here</span>
+          <h2 style="font-size:clamp(28px,3.4vw,38px); margin-bottom:16px;">Tell us what you're looking for</h2>
+          <p>This isn't a checkout — it's the start of a direct relationship. Tell us the lot and volume you have in mind and how you'd prefer to settle payment, and we'll follow up personally.</p>
+          <div class="line">
+            La Paz · Comayagua, Honduras<br>
+            hello@vestigioscafe.com
+          </div>
+        </div>
+
+        <form class="guestbook reveal" id="interestForm">
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" required>
+            </div>
+            <div class="field">
+              <label for="company">Company / roastery</label>
+              <input id="company" name="company" type="text">
+            </div>
+            <div class="field">
+              <label for="country">Country</label>
+              <input id="country" name="country" type="text" required>
+            </div>
+            <div class="field">
+              <label for="variety">Variety of interest</label>
+              <select id="variety" name="variety">
+                <option>Geisha</option>
+                <option>Sidra</option>
+                <option>Pacamara</option>
+                <option>Parainema</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="lot">Lot(s) of interest</label>
+              <input id="lot" name="lot" type="text" placeholder="e.g. Sidra — Los Hornos">
+            </div>
+            <div class="field">
+              <label for="volume">Volume (bags)</label>
+              <input id="volume" name="volume" type="text" placeholder="e.g. 10–20 bags">
+            </div>
+            <div class="field">
+              <label for="payment">Preferred payment method</label>
+              <select id="payment" name="payment">
+                <option>Stablecoin (USDC)</option>
+                <option>Native token</option>
+                <option>Bitcoin</option>
+                <option>Fiat via Próspera ZEDE</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="wallet">Cardano wallet address <span class="hint">(optional)</span></label>
+              <input id="wallet" name="wallet" type="text" placeholder="addr1...">
+            </div>
+            <div class="field full">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a bit about what you're sourcing for..."></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn">Start the conversation</button>
+          <div id="formStatus"></div>
+          <p class="form-note">This form opens your email client for now — a direct submission will be wired in shortly.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="Vestigios Café">
+        <span>Vestigios Café</span>
+      </div>
+      <nav>
+        <a href="#origin">Origin</a>
+        <a href="#lots">Lots</a>
+        <a href="#process">Process</a>
+        <a href="#certification">NFT's</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>Honduras — Cordillera de Montecillos · Montaña de Comayagua</span>
+      <span>© 2026 Vestigios Café. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ---- QR code: point this at your live GitHub Pages URL once published ----
+  const SITE_URL = "https://jpbulnesv-afk.github.io/VESTIGIO_CAFE/";
+  new QRCode(document.getElementById("qrCanvas"), {
+    text: SITE_URL,
+    width: 104,
+    height: 104,
+    colorDark: "#2A2420",
+    colorLight: "#FBF7F0",
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  // mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const navLinks = document.getElementById('navLinks');
+  menuBtn.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    navLinks.classList.remove('open');
+    menuBtn.setAttribute('aria-expanded', 'false');
+  }));
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.14 });
+  revealEls.forEach(el => io.observe(el));
+
+  // request-lot buttons -> scroll to contact + prefill
+  document.querySelectorAll('.request').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lot = btn.dataset.lot;
+      document.getElementById('variety').value = lot;
+      document.getElementById('lot').value = lot;
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => document.getElementById('name').focus(), 500);
+    });
+  });
+
+  // honey / washed / natural diagram
+  const captions = {
+    honey: {
+      text: "<b>Honey process —</b> the skin is removed but some or all of the sticky mucilage is left on the parchment to dry with the bean, adding body and sweetness.",
+      mucilage: 0.55, parchmentDash: "4 4"
+    },
+    washed: {
+      text: "<b>Washed process —</b> the mucilage is fully fermented and rinsed away before drying, leaving a cleaner, brighter, more acidity-forward cup.",
+      mucilage: 0.08, parchmentDash: "2 3"
+    },
+    natural: {
+      text: "<b>Natural process —</b> the whole cherry dries intact around the bean, so sugars from the fruit itself soak in, giving heavier body and fruit-forward sweetness.",
+      mucilage: 0.85, parchmentDash: "0"
+    }
+  };
+  document.getElementById('processTags').addEventListener('click', (e) => {
+    const btn = e.target.closest('.process-tag');
+    if (!btn) return;
+    document.querySelectorAll('.process-tag').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const key = btn.dataset.p;
+    const c = captions[key];
+    document.getElementById('cherryCaption').innerHTML = c.text;
+    document.getElementById('layerMucilage').setAttribute('fill-opacity', c.mucilage);
+    document.getElementById('layerParchment').setAttribute('stroke-dasharray', c.parchmentDash);
+  });
+
+  // contact form -> mailto fallback (no backend yet)
+  document.getElementById('interestForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const f = new FormData(this);
+    const lines = [
+      'Name: ' + f.get('name'),
+      'Company: ' + f.get('company'),
+      'Country: ' + f.get('country'),
+      'Variety of interest: ' + f.get('variety'),
+      'Lot(s): ' + f.get('lot'),
+      'Volume: ' + f.get('volume'),
+      'Preferred payment: ' + f.get('payment'),
+      'Wallet (optional): ' + f.get('wallet'),
+      '',
+      'Message:',
+      f.get('message')
+    ].join('\n');
+    const subject = encodeURIComponent('Lot inquiry — Vestigios Café');
+    const body = encodeURIComponent(lines);
+    window.location.href = `mailto:hello@vestigioscafe.com?subject=${subject}&body=${body}`;
+    const status = document.getElementById('formStatus');
+    status.style.display = 'block';
+    status.textContent = 'Opening your email client to send this inquiry…';
+  });
+</script>
+
+</body>
+</html>
